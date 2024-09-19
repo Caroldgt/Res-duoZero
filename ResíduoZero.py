@@ -11,6 +11,7 @@ class GestaoResiduos:
         residuo = Residuo(tipo, quantidade)
         self.residuos.append(residuo)
         print(f"{quantidade}kg de {tipo} adicionado.")
+        print(f"Resíduo de tipo '{tipo}' foi adicionado com sucesso!")
 
     def calcular_totais(self):
         totais = {
@@ -56,7 +57,13 @@ def main():
             if tipo not in ['orgânico', 'reciclável', 'não reciclável']:
                 print("Tipo de resíduo inválido. Tente novamente.")
                 continue
-            quantidade = float(input("Digite a quantidade em quilos: "))
+            while True:
+                try:
+                    quantidade_str = input("Digite a quantidade em quilos (somente números): ").strip()
+                    quantidade = float(quantidade_str)
+                    break
+                except ValueError:
+                    print("Quantidade inválida. Por favor, digite um número válido sem caracteres adicionais.")
             sistema.adicionar_residuo(tipo, quantidade)
         elif escolha == '2':
             sistema.mostrar_status()
